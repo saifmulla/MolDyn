@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <time.h>
-#include <omp.h> 
+//#include <omp.h> 
 #define mm 12
 #define npart 4*mm*mm*mm
 /*

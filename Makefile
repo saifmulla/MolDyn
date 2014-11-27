@@ -2,9 +2,8 @@
 
 #
 # C compiler and options
-#
-#CC=     pgcc -O3 -mp 
-CC=     cc
+# -mp
+CC=     clang -O3 -march=native 
 #LIB=	-lm
 
 #
