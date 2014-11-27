@@ -1,60 +1,52 @@
-#include <stdio.h>
-#include <math.h>
-#include <time.h>
-#include <omp.h> 
-#define mm 12
-#define npart 4*mm*mm*mm
-/*
- *  Function declarations
- */
-
-  void
-  dfill(int,double,double[],int);
-
-  void
-  domove(int,double[],double[],double[],double);
-
-  void
-  dscal(int,double,double[],int);
-
-  void
-  fcc(double[],int,int,double);
-
-  void
-  forces(int,double[],double[],double,double);
-
-  double
-  mkekin(int,double[],double[],double,double);
-
-  void
-  mxwell(double[],int,double,double);
-
-  void
-  prnout(int,double,double,double,double,double,double,int,double);
-
-  double
-  velavg(int,double[],double,double);
-
-  double 
-  secnds(void);
-
-//cuda wrapper function definition
-//void kernelWrapper(int,double*,double*,double,double);
-
+#include "MolDyn.h"
 /*
  *  Variable declarations
  */
 
-  double epot;
-  double vir;
-  double count;
+    double epot;
+    double vir;
+    double count;
 
 /*
  *  Main program : Molecular Dynamics simulation.
  */
-int main(){
+int main(int argc, char* argv[]){
+    //initial sizes
+    int mm = 12;// size of box
+    int i = 0;
+    double h = 0.0025;
+    int movemx = 20;
+    
+    /**
+     * check if command line values are supplied if yes
+     * then use those values else
+     * stay with default values
+     */
+    if (argc > 1) {
+        if(argv[1])
+            mm = atoi(argv[1]);
+        //check time step size
+        if (argv[2])
+            h = (double) atof(argv[2]);
+        if (argv[3])
+            movemx = atoi(argv[3]);
+    }
+    
+    int npart = 4*mm*mm*mm; //size of molecules
     int move;
-    double x[npart*3], vh[npart*3], f[npart*3];
+    double* x=NULL;
+    double* vh=NULL;
+    double* f=NULL;
+    x = (double*) malloc(sizeof(double)*npart*3);
+    vh = (double*) malloc(sizeof(double)*npart*3);
+    f = (double*) malloc(sizeof(double)*npart*3);
+    
+    unsigned long memalign16 = ((unsigned long)x & 15);
+    unsigned long memalign32 = ((unsigned long)vh & 31);
+    
+    printf("Memalign16 %s\n",(memalign16==0?"aligned":"unaligned"));
+    printf("Memalign32 %s\n",(memalign32==0?"aligned":"unaligned"));
+    
     double ekin;
     double vel;
     double sc;
@@ -69,11 +61,9 @@ int main(){
     double side   = pow((double)npart/den,0.3333333);
     double tref   = 0.722;
     double rcoff  = (double)mm/4.0;
-    double h      = 0.064;
     int    irep   = 10;
     int    istop  = 20;
     int    iprint = 5;
-    int    movemx = 20;
 
     double a      = side/(double)mm;
     double hsq    = h*h;
@@ -128,7 +118,6 @@ int main(){
      *  and potential energy.
      */
       forces(npart, x, f, side, rcoff);
-	//kernelWrapper(npart,x,f,side,rcoff);
 
     /*
      *  Scale forces, complete update of velocities and compute k.e.

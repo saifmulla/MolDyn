@@ -4,7 +4,7 @@
 # C compiler and options
 # -mp
 CC=     gcc-mp-4.8 -O3
-LIB=	-lm -arch x86_64 -fopenmp -march=native
+LIB=	-lm -arch x86_64 -fopenmp -march=native -mavx
 
 #
 # Object files
