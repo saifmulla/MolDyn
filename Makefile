@@ -3,8 +3,8 @@
 #
 # C compiler and options
 # -mp
-CC=     clang -O3 -march=native 
-#LIB=	-lm
+CC=     gcc-mp-4.8 -O3
+LIB=	-lm -arch x86_64 -fopenmp -march=native
 
 #
 # Object files
