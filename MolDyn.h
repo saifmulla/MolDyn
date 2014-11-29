@@ -12,7 +12,9 @@
 #include <stdlib.h>
 //check if compiler is GCC
 // coz for the moment clang does not contain openmp
+#ifdef __openmp
 #include <omp.h>
+#endif
 
 /*
  *  Function declarations

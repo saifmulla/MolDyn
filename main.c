@@ -142,17 +142,22 @@ int main(int argc, char* argv[]){
     }
 
     time = secnds() - start;  
-
-    printf("Time =  %f\n",(float) time);  
-
+#ifdef __openmp
+    printf("Time =  %f\n",(float) time);
+#else
+    printf("Time = %f\n",((float) time)/CLOCKS_PER_SEC);
+#endif
   }
 
 time_t starttime = 0; 
 
 double secnds()
 {
-
-  return omp_get_wtime(); 
+#ifdef __openmp
+  return omp_get_wtime();
+#else
+    return clock();
+#endif
 
 }
 
