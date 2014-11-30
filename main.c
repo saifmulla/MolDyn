@@ -13,7 +13,6 @@
 int main(int argc, char* argv[]){
     //initial sizes
     int mm = 12;// size of box
-    int i = 0;
     double h = 0.0025;
     int movemx = 20;
     
@@ -32,7 +31,7 @@ int main(int argc, char* argv[]){
             movemx = atoi(argv[3]);
     }
     
-    int npart = 4*mm*mm*mm; //size of molecules
+    const int npart = 4*mm*mm*mm; //size of molecules
     int move;
     double* x=NULL;
     double* vh=NULL;
@@ -40,6 +39,8 @@ int main(int argc, char* argv[]){
     x = (double*) malloc(sizeof(double)*npart*3);
     vh = (double*) malloc(sizeof(double)*npart*3);
     f = (double*) malloc(sizeof(double)*npart*3);
+    
+    const unsigned int npartcube = npart*3;
     
     unsigned long memalign16 = ((unsigned long)x & 15);
     unsigned long memalign32 = ((unsigned long)vh & 31);
@@ -58,9 +59,9 @@ int main(int argc, char* argv[]){
    */
 
     double den    = 0.83134;
-    double side   = pow((double)npart/den,0.3333333);
+    const double side   = pow((double)npart/den,0.3333333);
     double tref   = 0.722;
-    double rcoff  = (double)mm/4.0;
+    const double rcoff  = (double)mm/4.0;
     int    irep   = 10;
     int    istop  = 20;
     int    iprint = 5;
@@ -147,6 +148,9 @@ int main(int argc, char* argv[]){
 #else
     printf("Time = %f\n",((float) time)/CLOCKS_PER_SEC);
 #endif
+    free(x);
+    free(vh);
+    free(f);
   }
 
 time_t starttime = 0; 

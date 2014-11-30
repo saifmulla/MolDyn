@@ -3,7 +3,7 @@
  *   Generate fcc lattice for atoms inside the box
  */
   void
-  fcc(double x[], int npart, int mm, double a){
+  fcc(double x[], const int npart, const int mm, const double a){
     int ijk=0;
     int i,j,k,lg;
 

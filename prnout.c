@@ -4,8 +4,8 @@
  *   Print out interesting information at current timestep
  */
   void
-  prnout(int move, double ekin, double epot, double tscale, double vir,
-         double vel, double count, int npart, double den){
+  prnout(const int move,const double ekin, double epot, const double tscale, const double vir,
+         double vel, double count, const int npart, const double den){
     double ek, etot, temp, pres, rp;
 
     ek=24.0*ekin;

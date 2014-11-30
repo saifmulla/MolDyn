@@ -3,7 +3,7 @@
  *  Scale forces, update velocities and compute K.E.
  */
   double
-  mkekin(int npart, double f[], double vh[], double hsq2, double hsq){
+  mkekin(const int npart, double f[], double vh[], const double hsq2, const double hsq){
     int i;
     double sum=0.0, ekin;
 

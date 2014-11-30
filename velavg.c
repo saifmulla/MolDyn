@@ -4,7 +4,7 @@
  *  Compute average velocity
  */
   double
-  velavg(int npart, double vh[], double vaver, double h){
+  velavg(const int npart, double vh[], const double vaver, const double h){
     int i;
     double vaverh=vaver*h;
     double vel=0.0;

@@ -3,7 +3,7 @@
  *  Move particles
  */
   void
-  domove(int n3, double x[], double vh[], double f[], double side){
+  domove(const int n3, double x[], double vh[], double f[], const double side){
     int i;
 
     for (i=0; i<n3; i++) {

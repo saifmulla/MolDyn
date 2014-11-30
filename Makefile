@@ -3,12 +3,13 @@
 #
 # C compiler and options
 # -mp
-CC=     clang -O3 -march=corei7-avx -arch x86_64
+CC=     clang -O3 -march=native -mavx -arch x86_64
 LIB=	-lm
 
 #
 # Object files
 #
+
 OBJ=    main.o \
 	dfill.o \
 	domove.o \

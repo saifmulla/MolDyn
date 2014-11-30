@@ -24,22 +24,22 @@
 
 
 void
-dfill(int,double,double[],int);
+dfill(const int,const double,double[],const int);
 
 void
-domove(int,double[],double[],double[],double);
+domove(const int,double[],double[],double[],const double);
 
 void
 dscal(int,double,double[],int);
 
 void
-fcc(double[],int,int,double);
+fcc(double[],const int,const int,const double);
 
 void
-forces(int,double[],double[],double,double);
+forces(const int,double[],double[],const double, const double);
 
 double
-mkekin(int,double[],double[],double,double);
+mkekin(const int,double[],double[],const double,const double);
 
 void
 mxwell(double[],int,double,double);
@@ -48,7 +48,7 @@ void
 prnout(int,double,double,double,double,double,double,int,double);
 
 double
-velavg(int,double[],double,double);
+velavg(const int,double[],const double,const double);
 
 double
 secnds(void);

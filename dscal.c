@@ -3,7 +3,7 @@
  *  Scales an array
  */
   void
-  dscal(int n,double sa,double sx[], int incx){
+  dscal(const int n,const double sa,double sx[], const int incx){
     int i,j;
 
     if (incx == 1) {
